@@ -1,3 +1,6 @@
+# hashtag important
+import eventlet
+eventlet.monkey_patch()
 
 from graphene import ObjectType, String, Schema
 from rx import Observable
@@ -6,8 +9,16 @@ import logging
 import math
 import datetime
 
-logging.getLogger().setLevel(logging.DEBUG)
+from flask import Flask, request, render_template
+import socketio
+import json
+from flask_cors import CORS
+from graphql.execution.base import ExecutionResult
 
+logging.getLogger().setLevel(logging.DEBUG)
+#
+# schema
+#
 
 class Query(ObjectType):
     hello = String(name=String(default_value="stranger"))
@@ -31,25 +42,9 @@ class Subscription(ObjectType):
 
 schema = Schema(query=Query, subscription=Subscription)
 
-# r = schema.execute('subscription { hello }', allow_subscriptions=True)
-# print(type(r), type(schema.execute('query { hello }', allow_subscriptions=True)))
 #
-# r.subscribe(lambda x: print(x.data))
+# server
 #
-# time.sleep(5)
-
-# flask_sqlalchemy/app.py
-
-
-
-from flask import Flask, request, render_template
-import socketio
-import json
-from flask_cors import CORS
-from graphql.execution.base import ExecutionResult
-import eventlet
-
-eventlet.monkey_patch()
 
 sio = socketio.Server(logger=True)
 app = Flask(__name__)
