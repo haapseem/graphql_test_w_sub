@@ -1,0 +1,17 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+
+<div id="sub"></div>
+
+<script>
+  const socket = io('http://localhost:8000');
+
+  socket.on('sub', (x) => {
+    document.getElementById('sub').innerHTML = x.hello;
+    // console.log(x);
+  });
+
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.open("GET", "http://localhost:8000/graphql?query=subscription%7B%0A  hello %0A%7D%0A%0A&operationName=undefined", true);
+  xhttp.send();
+</script>
