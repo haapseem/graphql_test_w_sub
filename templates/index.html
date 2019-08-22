@@ -12,6 +12,11 @@
 
   var xhttp = new XMLHttpRequest();
 
+  /**
+   * subscribe {
+   *   hello
+   * }
+   */
   xhttp.open("GET", "http://localhost:8000/graphql?query=subscription%7B%0A  hello %0A%7D%0A%0A&operationName=undefined", true);
   xhttp.send();
 </script>
