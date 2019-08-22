@@ -75,12 +75,10 @@ def graphql_query():
 @sio.on("connect")
 def con(sid, env):
     connections.append(sid)
-    print("connections", connections)
 
 @sio.on("disconnect")
 def discon(sid):
     connections.remove(sid)
-    print(connections)
 
 CORS(app)
 app.wsgi_app = socketio.WSGIApp(sio, app.wsgi_app)
