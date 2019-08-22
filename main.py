@@ -24,7 +24,7 @@ class Subscription(ObjectType):
     goodbye = String()
 
     def resolve_hello(root, info):
-        return Observable.interval(1).map(lambda x: str(datetime.datetime.now()))
+        return Observable.interval(1000).map(lambda x: str(datetime.datetime.now()))
 
     def resolve_goodbye(root, info):
         return 'See ya!'

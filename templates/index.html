@@ -6,7 +6,7 @@
   const socket = io('http://localhost:8000');
 
   socket.on('sub', (x) => {
-    document.getElementById('sub').innerHTML = x.hello;
+    document.getElementById('sub').innerHTML = 'server clock: ' + x.hello;
     // console.log(x);
   });
 
