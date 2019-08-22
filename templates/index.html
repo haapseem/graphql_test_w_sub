@@ -1,22 +1,27 @@
+<!-- <meta http-equiv="refresh" content="2"> -->
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 
+<div id="sid"></div>
 <div id="sub"></div>
 
 <script>
   const socket = io('http://localhost:8000');
 
   socket.on('sub', (x) => {
-    document.getElementById('sub').innerHTML = 'server clock: ' + x.hello;
-    // console.log(x);
+    document.getElementById('sub').innerHTML = '<h4 style="color: red;">server clock: </h4>' + x.time;
   });
 
-  var xhttp = new XMLHttpRequest();
-
-  /**
-   * subscribe {
-   *   hello
-   * }
-   */
-  xhttp.open("GET", "http://localhost:8000/graphql?query=subscription%7B%0A  hello %0A%7D%0A%0A&operationName=undefined", true);
-  xhttp.send();
+  socket.on('connect', () => {
+    document.getElementById('sid').innerHTML = '<h4 style="color: red;">socket.io id: </h4>' + socket.id;
+    /**
+    *   subscribe {
+    *     hello
+    *   }
+    */
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", 'http://localhost:8000/graphql?query=subscription { time(sid: "' + socket.id + '") }&&sid=' + socket.id + "", true);
+    xhttp.send();
+  });
 </script>
